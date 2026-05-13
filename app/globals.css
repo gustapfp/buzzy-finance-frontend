@@ -5,7 +5,8 @@
   --color-background-light: #faf6ec;
   --color-background-dark: #1c1917;
   --color-charcoal: #1c1917;
-  --font-display: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @utility honeycomb-pattern {

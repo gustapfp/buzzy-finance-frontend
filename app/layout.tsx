@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 
-import { I18nProvider } from "../components/I18nProvider";
+import { I18nProvider } from "../components/18nProvider/I18nProvider";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-space-grotesk",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Buzzy Finance",
@@ -15,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${spaceGrotesk.variable} ${inter.variable} font-sans antialiased`}>
         <I18nProvider>{children}</I18nProvider>
       </body>
     </html>

@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 
 import { I18nProvider } from "../components/18nProvider/I18nProvider";
 
+import "./globals.css";
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["700"],

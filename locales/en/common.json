@@ -1,7 +1,10 @@
 {
-  "title": "Home Page",
-  "subtitle": "This is the home page",
   "language": "Language",
   "english": "English",
-  "portuguese": "Portuguese"
+  "portuguese": "Portuguese",
+  "comingSoon": {
+    "titleAccent": "Be Buzzy",
+    "titleRest": "no busy",
+    "subtitle": "Buzzy is currently in development. We're busy organizing the tools you need to make your finance productive and honest."
+  }
 }

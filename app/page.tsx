@@ -1,10 +1,7 @@
+import { InConstruction } from "../components/shared/inContruction/inContruction";
+
 const HomePage = () => {
-  return (
-    <div>
-      <h1>Home Page</h1>
-      <p>This is the home page</p>
-    </div>
-  );
+  return <InConstruction />;
 };
 
 export default HomePage;

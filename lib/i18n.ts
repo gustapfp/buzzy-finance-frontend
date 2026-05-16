@@ -7,7 +7,7 @@ import ptCommon from "../locales/pt/common.json";
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     lng: "en",
-    fallbackLng: "en",
+    fallbackLng: "pt",
     supportedLngs: ["en", "pt"],
     ns: ["common"],
     defaultNS: "common",

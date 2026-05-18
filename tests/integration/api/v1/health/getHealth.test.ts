@@ -11,6 +11,7 @@ describe("API -> Health Check", () => {
       const data = (await response.json()) as { status: string; message: { nodeServer: string; postgreSQL: string } };
 
       expect(data.message.nodeServer).toBe("Application running...");
+      expect(data.message.postgreSQL).toBe("Database connection ok...");
     });
     it("returns 404 when called wrong API version", async () => {
       let response = await fetch(`${BASE_URL}/health`);

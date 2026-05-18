@@ -1,4 +1,4 @@
-import { InConstruction } from "../components/shared/inContruction/inContruction";
+import { InConstruction } from "../components/shared/InConstruction/InConstruction";
 
 const HomePage = () => {
   return <InConstruction />;

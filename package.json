@@ -31,14 +31,17 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "bun run compose:up && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "lint:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "prepare": "husky",
     "test": "jest",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "compose:up": "docker compose -f ./infra/docker/docker-compose.yml up -d",
+    "compose:stop": "docker compose -f ./infra/docker/docker-compose.yml stop",
+    "compose:down": "docker compose -f ./infra/docker/docker-compose.yml down"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

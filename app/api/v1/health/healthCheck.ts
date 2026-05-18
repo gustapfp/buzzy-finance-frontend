@@ -1,4 +1,4 @@
-import { databaseHealthCheck } from "../../../../infra/database";
+import { databaseHealthCheck } from "infra/database";
 
 const healthCheck = async () => {
   const postgreSQLCheck = await databaseHealthCheck();

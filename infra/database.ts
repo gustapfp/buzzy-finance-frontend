@@ -14,7 +14,7 @@ export const createClient = (): Client => {
   return client;
 };
 
-const DB_POOL: Pool = new Pool({
+export const DB_POOL: Pool = new Pool({
   ...databaseConfig,
   max: 20,
   idleTimeoutMillis: 30000,

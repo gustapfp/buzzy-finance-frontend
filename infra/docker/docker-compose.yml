@@ -9,7 +9,7 @@ services:
       - buzzy_finance_postgresql_local:/var/lib/postgresql/data
       - buzzy_finance_postgresql_local:/backups
     env_file:
-      - ../.env/.postgres
+      - ../../.env
 
 volumes:
   buzzy_finance_postgresql_local: {}

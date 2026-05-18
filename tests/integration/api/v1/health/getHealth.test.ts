@@ -6,10 +6,16 @@ describe("API -> Health Check", () => {
       const response = await fetch(`${BASE_URL}/v1/health`);
       expect(response.status).toBe(200);
     });
+    it("returns success messages for Database and Application", async () => {
+      const response = await fetch(`${BASE_URL}/v1/health`);
+      const data = (await response.json()) as { status: string; message: { nodeServer: string; postgreSQL: string } };
+
+      expect(data.message.nodeServer).toBe("Application running...");
+    });
     it("returns 404 when called wrong API version", async () => {
-      let response = await fetch(`${BASE_URL}/helth`);
+      let response = await fetch(`${BASE_URL}/health`);
       expect(response.status).toBe(404);
-      response = await fetch(`${BASE_URL}/v0/helth`);
+      response = await fetch(`${BASE_URL}/v0/health`);
       expect(response.status).toBe(404);
     });
   });

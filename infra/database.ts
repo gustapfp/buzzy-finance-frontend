@@ -38,7 +38,10 @@ export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
   const updateAt = new Date().toISOString();
 
   try {
-    const dbHealthResponse: QueryResult = await DB_POOL.query(dbHealthStatement, [databaseConfig.database]);
+    const dbHealthResponse: QueryResult = await DB_POOL.query({
+      text: dbHealthStatement,
+      values: [databaseConfig.database],
+    });
     const dbHealthRows: QueryResultRow = dbHealthResponse.rows[0];
 
     return {

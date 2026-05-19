@@ -1,4 +1,5 @@
 import { Client, Pool } from "pg";
+import type { QueryResult, QueryResultRow } from "pg";
 import type { DatabaseStatusResponse } from "./types";
 
 const databaseConfig = {
@@ -16,28 +17,38 @@ export const createClient = (): Client => {
 
 export const DB_POOL: Pool = new Pool({
   ...databaseConfig,
-  max: 20,
+  max: 102,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
   maxLifetimeSeconds: 60,
 });
 
 export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
-  const statement = "SELECT $1::text as message";
+  const dbHealthStatement = `
+
+  SELECT
+    (SELECT count(*)::int FROM pg_stat_database WHERE datname = 'localhost_db') AS active_connections,
+    current_setting('server_version') AS server_version,
+    current_setting('max_connections')::int AS max_connections
+  `;
+
   const updateAt = new Date().toISOString();
 
   try {
-    const res = await DB_POOL.query(statement, ["Database connection ok..."]);
+    const dbHealthResponse: QueryResult = await DB_POOL.query(dbHealthStatement);
+    const dbHealthRows: QueryResultRow = dbHealthResponse.rows[0];
 
+    console.log(dbHealthResponse);
     return {
       update_at: updateAt,
-      postgres_version: "V16.0",
-      max_connections: DB_POOL.totalCount,
-      active_connections: DB_POOL.totalCount - DB_POOL.idleCount,
+      postgres_version: `V${dbHealthRows.server_version}`,
+      max_connections: dbHealthRows.max_connections,
+      active_connections: dbHealthRows.active_connections,
       exit_code: 0,
-      db_message: res.rows[0].message,
+      db_message: "Database connection ok...",
     };
   } catch (err) {
+    console.error(err);
     return {
       update_at: updateAt,
       postgres_version: "V16.0",

@@ -6,6 +6,7 @@ export default {
       testEnvironment: "jsdom",
       testMatch: ["<rootDir>/tests/unit/**/*.test.{ts,tsx}"],
       extensionsToTreatAsEsm: [".tsx", ".ts"],
+      moduleDirectories: ["node_modules", "<rootDir>"],
       setupFilesAfterEnv: ["<rootDir>/test-setup.ts"],
       transform: {
         "^.+\\.(t|j)sx?$": [
@@ -27,15 +28,13 @@ export default {
       displayName: "integration",
       testEnvironment: "node",
       testMatch: ["<rootDir>/tests/integration/**/*.test.ts"],
+      moduleDirectories: ["node_modules", "<rootDir>"],
       extensionsToTreatAsEsm: [".ts"],
       transform: {
         "^.+\\.tsx?$": [
           "babel-jest",
           {
-            presets: [
-              ["@babel/preset-env", { targets: { node: "current" } }],
-              "@babel/preset-typescript",
-            ],
+            presets: [["@babel/preset-env", { targets: { node: "current" } }], "@babel/preset-typescript"],
           },
         ],
       },

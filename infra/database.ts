@@ -1,29 +1,67 @@
-import { Client } from "pg";
+import { Client, Pool } from "pg";
+import type { QueryResult, QueryResultRow } from "pg";
+import type { DatabaseStatusResponse } from "./types";
 
-export const databaseHealthCheck = async () => {
-  const client = new Client({
-    host: process.env.POSTGRES_HOST ?? "localhost",
-    port: Number(process.env.POSTGRES_PORT ?? 5432),
-    database: process.env.POSTGRES_DB,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-  });
+const databaseConfig = {
+  host: process.env.POSTGRES_HOST ?? "localhost",
+  port: Number(process.env.POSTGRES_PORT ?? 5432),
+  database: process.env.POSTGRES_DB,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+};
 
-  await client.connect();
-  const statement = "SELECT $1::text as message";
+export const createClient = (): Client => {
+  const client = new Client(databaseConfig);
+  return client;
+};
+
+export const DB_POOL: Pool = new Pool({
+  ...databaseConfig,
+  max: 102,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+  maxLifetimeSeconds: 60,
+});
+
+export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
+  const client = await DB_POOL.connect();
+  const dbHealthStatement = `
+  SELECT
+    (
+      SELECT count(*)::int FROM pg_stat_database
+      WHERE datname = $1
+    ) AS active_connections,
+
+    current_setting('server_version') AS server_version,
+    current_setting('max_connections')::int AS max_connections
+  `;
+
+  const updateAt = new Date().toISOString();
 
   try {
-    const res = await client.query(statement, ["Database connection ok..."]);
+    const dbHealthResponse: QueryResult = await client.query({
+      text: dbHealthStatement,
+      values: [databaseConfig.database],
+    });
+    const dbHealthRows: QueryResultRow = dbHealthResponse.rows[0];
+
     return {
+      update_at: updateAt,
+      postgres_version: `V${dbHealthRows.server_version}`,
+      max_connections: dbHealthRows.max_connections,
+      active_connections: dbHealthRows.active_connections,
       exit_code: 0,
-      db_response: res.rows[0].message,
+      db_message: "Database connection ok...",
     };
   } catch (err) {
+    console.error(err);
     return {
+      update_at: updateAt,
+      postgres_version: "V16.0",
       exit_code: 1,
-      db_response: String(err),
+      db_message: String(err),
     };
   } finally {
-    await client.end();
+    await client.release(true);
   }
 };

@@ -25,9 +25,12 @@ export const DB_POOL: Pool = new Pool({
 
 export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
   const dbHealthStatement = `
-
   SELECT
-    (SELECT count(*)::int FROM pg_stat_database WHERE datname = 'localhost_db') AS active_connections,
+    (
+      SELECT count(*)::int FROM pg_stat_database
+      WHERE datname = $1
+    ) AS active_connections,
+
     current_setting('server_version') AS server_version,
     current_setting('max_connections')::int AS max_connections
   `;
@@ -35,10 +38,9 @@ export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
   const updateAt = new Date().toISOString();
 
   try {
-    const dbHealthResponse: QueryResult = await DB_POOL.query(dbHealthStatement);
+    const dbHealthResponse: QueryResult = await DB_POOL.query(dbHealthStatement, [databaseConfig.database]);
     const dbHealthRows: QueryResultRow = dbHealthResponse.rows[0];
 
-    console.log(dbHealthResponse);
     return {
       update_at: updateAt,
       postgres_version: `V${dbHealthRows.server_version}`,

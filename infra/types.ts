@@ -1,5 +1,5 @@
 export interface DatabaseStatusResponse {
-  update_at: String;
+  update_at: string;
   postgres_version: String;
   max_connections?: Number;
   active_connections?: Number;

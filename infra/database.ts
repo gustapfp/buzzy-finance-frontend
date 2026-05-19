@@ -24,6 +24,7 @@ export const DB_POOL: Pool = new Pool({
 });
 
 export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
+  const client = await DB_POOL.connect();
   const dbHealthStatement = `
   SELECT
     (
@@ -38,7 +39,7 @@ export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
   const updateAt = new Date().toISOString();
 
   try {
-    const dbHealthResponse: QueryResult = await DB_POOL.query({
+    const dbHealthResponse: QueryResult = await client.query({
       text: dbHealthStatement,
       values: [databaseConfig.database],
     });
@@ -60,5 +61,7 @@ export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
       exit_code: 1,
       db_message: String(err),
     };
+  } finally {
+    await client.release(true);
   }
 };

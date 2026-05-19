@@ -1,4 +1,5 @@
 import type { HealthCheckResponse } from "app/api/v1/health/types";
+import { DB_POOL } from "infra/database";
 
 const BASE_URL = "http://localhost:3000/api";
 
@@ -20,6 +21,8 @@ describe("API -> Health Check", () => {
       expect(data.database.max_connections).toBeLessThanOrEqual(100);
       expect(data.database.update_at).toBeTruthy();
       expect(new Date(data.database.update_at).toISOString()).toBe(data.database.update_at);
+      expect(DB_POOL.idleCount === 0);
+      expect(DB_POOL.totalCount === 0);
     });
 
     it("returns 404 when called wrong API version", async () => {

@@ -1,8 +1,16 @@
+export interface DatabaseConfig {
+  host: string;
+  port: number;
+  database: string | undefined;
+  user: string | undefined;
+  password: string | undefined;
+  ssl: boolean | undefined;
+}
 export interface DatabaseStatusResponse {
   update_at: string;
-  postgres_version: String;
-  max_connections?: Number;
-  active_connections?: Number;
-  exit_code: Number;
-  db_message: String;
+  postgres_version: string;
+  max_connections?: number;
+  active_connections?: number;
+  exit_code: number;
+  db_message: string;
 }

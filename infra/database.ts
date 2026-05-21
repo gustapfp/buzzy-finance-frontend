@@ -1,13 +1,14 @@
 import { Client, Pool } from "pg";
 import type { QueryResult, QueryResultRow } from "pg";
-import type { DatabaseStatusResponse } from "./types";
+import type { DatabaseConfig, DatabaseStatusResponse } from "./types";
 
-const databaseConfig = {
+const databaseConfig: DatabaseConfig = {
   host: process.env.POSTGRES_HOST ?? "localhost",
   port: Number(process.env.POSTGRES_PORT ?? 5432),
-  database: process.env.POSTGRES_DB,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB as string,
+  user: process.env.POSTGRES_USER as string,
+  password: process.env.POSTGRES_PASSWORD as string,
+  ssl: process.env.ENVIRONMENT === "local" ? false : true,
 };
 
 export const createClient = (): Client => {
@@ -24,6 +25,7 @@ export const DB_POOL: Pool = new Pool({
 });
 
 export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
+  // console.log(...databaseConfig);
   const client = await DB_POOL.connect();
   const dbHealthStatement = `
   SELECT

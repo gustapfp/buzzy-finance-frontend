@@ -21,11 +21,13 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "babel-jest": "^30.4.1",
+    "dotenv": "^17.4.2",
     "husky": "^9.1.7",
     "jest-environment-jsdom": "^30.4.1",
     "postcss": "^8.5.14",
     "prettier": "3.8.3",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "tsx": "^4.22.3"
   },
   "peerDependencies": {
     "typescript": "^6.0.3"
@@ -41,7 +43,12 @@
     "watch": "jest --watch",
     "compose:up": "docker compose -f ./infra/docker/docker-compose.yml up -d",
     "compose:stop": "docker compose -f ./infra/docker/docker-compose.yml stop",
-    "compose:down": "docker compose -f ./infra/docker/docker-compose.yml down"
+    "compose:down": "docker compose -f ./infra/docker/docker-compose.yml down",
+    "migrate": "node-pg-migrate -j ts",
+    "migrate:create": "node-pg-migrate -j ts -m infra/migrations create",
+    "migrate:up": "NODE_OPTIONS='--import tsx' node-pg-migrate  -j ts -m infra/migrations --envPath .env.development up",
+    "migrate:down": "NODE_OPTIONS='--import tsx' node-pg-migrate -j ts -m infra/migrations  --envPath .env.development down",
+    "migrate:redo": "NODE_OPTIONS='--import tsx' node-pg-migrate  -j ts -m infra/migrations --envPath .env.development redo"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
@@ -51,6 +58,7 @@
     "i18next": "^26.1.0",
     "jest": "^30.4.2",
     "next": "^16.2.6",
+    "node-pg-migrate": "^8.0.4",
     "pg": "^8.21.0",
     "react": "19.2.6",
     "react-dom": "19.2.6",

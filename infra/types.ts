@@ -14,3 +14,11 @@ export interface DatabaseStatusResponse {
   exit_code: number;
   db_message: string;
 }
+
+export interface BaseMigrationsConfig {
+  databaseUrl: string;
+  dir: string; // ./infra/migrations
+  direction: string; // up -> SQL rollbacks are not used in this application
+  verbose: boolean;
+  dryRun: boolean;
+}

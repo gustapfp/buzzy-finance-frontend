@@ -1,4 +1,4 @@
-import healthCheck from "./healthCheck";
+import healthCheck from "./health";
 
 export function GET() {
   return healthCheck();

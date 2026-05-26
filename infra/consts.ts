@@ -1,4 +1,4 @@
-import type { DatabaseConfig } from "./types";
+import type { BaseMigrationsConfig, DatabaseConfig } from "./types";
 
 export const DATABASE_CONFIG: DatabaseConfig = {
   host: process.env.POSTGRES_HOST ?? "localhost",
@@ -9,4 +9,11 @@ export const DATABASE_CONFIG: DatabaseConfig = {
   ssl: process.env.ENVIRONMENT === "local" ? false : true,
 };
 
-export const MIGRATIONS_CONFIG = {};
+export const MIGRATIONS_CONFIG: BaseMigrationsConfig = {
+  databaseUrl: String(process.env.DATABASE_URL),
+  dir: "./infra/migrations",
+  direction: "up",
+  verbose: false,
+  dryRun: false,
+  migrationsTable: "pgmigrations",
+};

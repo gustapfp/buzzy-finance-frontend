@@ -21,4 +21,5 @@ export interface BaseMigrationsConfig {
   direction: string; // up -> SQL rollbacks are not used in this application
   verbose: boolean;
   dryRun: boolean;
+  migrationsTable: string;
 }

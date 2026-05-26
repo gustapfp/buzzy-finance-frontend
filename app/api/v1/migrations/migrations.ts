@@ -10,7 +10,7 @@ export const runDryMigrations: () => Promise<RunMigration[]> = async () => {
   });
 };
 
-export const runLiveRunMigrationa: () => Promise<RunMigration[]> = async () => {
+export const runLiveRunMigrations: () => Promise<RunMigration[]> = async () => {
   return await runner({
     ...(MIGRATIONS_CONFIG as RunnerOption),
   });

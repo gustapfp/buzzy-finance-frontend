@@ -17,7 +17,6 @@ export const DB_POOL: Pool = new Pool({
 });
 
 export const databaseStatus = async (): Promise<DatabaseStatusResponse> => {
-  // console.log(...databaseConfig);
   const client = await DB_POOL.connect();
   const dbHealthStatement = `
   SELECT

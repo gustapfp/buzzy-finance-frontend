@@ -1,7 +1,7 @@
 import type { HealthCheckResponse } from "app/api/v1/health/types";
 import { DB_POOL } from "infra/database";
 
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = `${process.env.BASE_URL}/api/`;
 
 describe("API -> Health Check", () => {
   describe("GET /v1/health", () => {
@@ -25,7 +25,7 @@ describe("API -> Health Check", () => {
       expect(DB_POOL.totalCount === 0);
     });
 
-    it("returns 404 when called wrong API version", async () => {
+    it("returns 404 when called wrong API version and URL", async () => {
       let response = await fetch(`${BASE_URL}/health`);
       expect(response.status).toBe(404);
       response = await fetch(`${BASE_URL}/v0/health`);

@@ -30,6 +30,7 @@ export default {
       testMatch: ["<rootDir>/tests/integration/**/*.test.ts"],
       moduleDirectories: ["node_modules", "<rootDir>"],
       extensionsToTreatAsEsm: [".ts"],
+      setupFiles: ["<rootDir>/tests/integration/setup.ts"],
       transform: {
         "^.+\\.tsx?$": [
           "babel-jest",

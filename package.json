@@ -40,6 +40,8 @@
     "lint:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "prepare": "husky",
     "test": "jest",
+    "test:unit": "jest --selectProjects unit",
+    "test:integration": "jest --selectProjects integration",
     "watch": "jest --watch",
     "compose:up": "docker compose -f ./infra/docker/docker-compose.yml up -d",
     "compose:stop": "docker compose -f ./infra/docker/docker-compose.yml stop",

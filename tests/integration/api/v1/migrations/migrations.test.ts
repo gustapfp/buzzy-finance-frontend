@@ -13,4 +13,7 @@ describe("Migrations", () => {
   describe("POST /migrations should return HTTP 201", () => {
     it.todo("implement");
   });
+  describe("Close DB_POLL connection after TRtransaction", () => {
+    it.todo("implement");
+  });
 });

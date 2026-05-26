@@ -1,5 +1,5 @@
 import healthCheck from "./health";
 
-export function GET() {
+export async function GET() {
   return healthCheck();
 }

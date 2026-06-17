@@ -33,7 +33,7 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "bun run ./infra/waitForExpressService.ts && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",

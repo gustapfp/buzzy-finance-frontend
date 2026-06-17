@@ -2,9 +2,9 @@
 export default {
   projects: [
     {
-      displayName: "unit",
+      displayName: "UI",
       testEnvironment: "jsdom",
-      testMatch: ["<rootDir>/tests/unit/**/*.test.{ts,tsx}"],
+      testMatch: ["<rootDir>/tests/**/*.test.{ts,tsx}"],
       extensionsToTreatAsEsm: [".tsx", ".ts"],
       moduleDirectories: ["node_modules", "<rootDir>"],
       setupFilesAfterEnv: ["<rootDir>/test-setup.ts"],
@@ -17,25 +17,6 @@ export default {
               ["@babel/preset-react", { runtime: "automatic" }],
               "@babel/preset-typescript",
             ],
-          },
-        ],
-      },
-      moduleNameMapper: {
-        "^(\\.{1,2}/.*)\\.js$": "$1",
-      },
-    },
-    {
-      displayName: "integration",
-      testEnvironment: "node",
-      testMatch: ["<rootDir>/tests/integration/**/*.test.ts"],
-      moduleDirectories: ["node_modules", "<rootDir>"],
-      extensionsToTreatAsEsm: [".ts"],
-      setupFiles: ["<rootDir>/tests/integration/setup.ts"],
-      transform: {
-        "^.+\\.tsx?$": [
-          "babel-jest",
-          {
-            presets: [["@babel/preset-env", { targets: { node: "current" } }], "@babel/preset-typescript"],
           },
         ],
       },

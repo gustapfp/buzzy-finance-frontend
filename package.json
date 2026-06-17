@@ -33,7 +33,7 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "dev": "bun run compose:up && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
@@ -42,15 +42,7 @@
     "test": "jest",
     "test:unit": "jest --selectProjects unit",
     "test:integration": "jest --selectProjects integration",
-    "watch": "jest --watch",
-    "compose:up": "docker compose -f ./infra/docker/docker-compose.yml up -d",
-    "compose:stop": "docker compose -f ./infra/docker/docker-compose.yml stop",
-    "compose:down": "docker compose -f ./infra/docker/docker-compose.yml down",
-    "migrate": "node-pg-migrate -j ts",
-    "migrate:create": "node-pg-migrate -j ts -m infra/migrations create",
-    "migrate:up": "NODE_OPTIONS='--import tsx' node-pg-migrate  -j ts -m infra/migrations --envPath .env.development up",
-    "migrate:down": "NODE_OPTIONS='--import tsx' node-pg-migrate -j ts -m infra/migrations  --envPath .env.development down",
-    "migrate:redo": "NODE_OPTIONS='--import tsx' node-pg-migrate  -j ts -m infra/migrations --envPath .env.development redo"
+    "watch": "jest --watch"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

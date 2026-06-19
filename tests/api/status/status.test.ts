@@ -1,5 +1,5 @@
-import healthCheck from "../../app/api/v1/status/status";
-import type { ServerHealthResponse } from "../../app/api/v1/status/types";
+import healthCheck from "app/api/v1/status/status";
+import type { ServerHealthResponse } from "app/api/v1/status/types";
 
 global.fetch = jest.fn();
 

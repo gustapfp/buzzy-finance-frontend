@@ -9,9 +9,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/jod
-          cache: "bun"
-          cache-dependency-path: package-lock.json
-      - run: corepack enable bun
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun build
       - run: bun test

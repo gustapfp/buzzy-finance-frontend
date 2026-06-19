@@ -6,13 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: corepack enable bun
       - uses: actions/setup-node@v4
         with:
           node-version: lts/jod
           cache: "bun"
           cache-dependency-path: package-lock.json
-
+      - run: corepack enable bun
       - run: bun install --frozen-lockfile
       - run: bun build
       - run: bun test

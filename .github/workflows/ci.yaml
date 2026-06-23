@@ -1,7 +1,7 @@
-name: Automated Tests
+name: Buzzy Finance Frontend CI
 on: pull_request
 jobs:
-  buzzy-finance-integration-tests:
+  buzzy-finance-frontend-tests:
     name: Build, Test, and Lint with Ubuntu
     runs-on: ubuntu-latest
     steps:
@@ -12,7 +12,13 @@ jobs:
           node-version: lts/jod
           cache: "pnpm"
           cache-dependency-path: pnpm-lock.yaml
+
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: pnpm test
-      - run: pnpm lint:check
+      - name: Build
+        run: pnpm build
+      - name: UI tests
+        run: pnpm test
+      - name: Prettier check
+        run: pnpm lint:prettier:check
+      - name: Eslint check
+        run: pnpm lint:eslint:check

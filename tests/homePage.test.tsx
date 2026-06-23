@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import HomePage from "../../app/page";
-import "../../lib/i18n";
-import { I18nProvider } from "../../components/18nProvider/I18nProvider";
+
+import HomePage from "app/page";
+import { I18nProvider } from "components/18nProvider/I18nProvider";
 
 describe("Home page", () => {
   it("Test Rendering", () => {

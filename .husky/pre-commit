@@ -1,2 +1,3 @@
-bun run test
-bun run lint
+pnpm test
+pnpm lint:prettier
+pnpm lint:eslint:check

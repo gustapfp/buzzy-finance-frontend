@@ -1,5 +1,5 @@
 interface ServerMessage {
-  server_message: String;
+  server_message: string;
 }
 
 export interface HealthCheckResponse {

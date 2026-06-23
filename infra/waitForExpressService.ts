@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env.development" });
+
 const MAX_RETRIES = 100;
 
 export async function waitForExpressService(retries = 0) {
@@ -7,7 +10,8 @@ export async function waitForExpressService(retries = 0) {
   }
 
   try {
-    const request = await fetch("http://localhost:8080/api/v1/status");
+    console.log("URL:", process.env.SERVICE_URL);
+    const request = await fetch(`${process.env.SERVICE_URL}/api/v1/status`);
     if (!request.ok) {
       process.stdout.write(".");
       return await waitForExpressService(retries + 1);

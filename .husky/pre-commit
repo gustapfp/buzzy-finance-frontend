@@ -1,2 +1,2 @@
-bun run test
-bun run lint
+pnpm test
+pnpm lint

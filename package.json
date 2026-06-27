@@ -49,7 +49,8 @@
     "test": "jest",
     "test:unit": "jest --selectProjects unit",
     "test:integration": "jest --selectProjects integration",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "clean": "rm -rf node_modules && pnpm install "
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

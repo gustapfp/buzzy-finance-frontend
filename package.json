@@ -24,7 +24,7 @@
     "@types/react-dom": "^19.2.3",
     "babel-jest": "^30.4.1",
     "dotenv": "^17.4.2",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "jest-environment-jsdom": "^30.4.1",
@@ -49,18 +49,17 @@
     "test": "jest",
     "test:unit": "jest --selectProjects unit",
     "test:integration": "jest --selectProjects integration",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "clean": "rm -rf node_modules && pnpm install "
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@types/jest": "^30.0.0",
-    "i18next": "^26.3.1",
+    "i18next": "^26.3.3",
     "jest": "^30.4.2",
     "next": "^16.2.9",
-    "node-pg-migrate": "^8.0.4",
-    "pg": "^8.22.0",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-i18next": "^17.0.8"
